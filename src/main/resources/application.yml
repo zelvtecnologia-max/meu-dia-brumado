@@ -1,6 +1,6 @@
 spring:
   application:
-    name: meu-dia-api
+    name: sistema-monitoramento
 
   # Configurações JPA/Hibernate
   jpa:
@@ -23,7 +23,7 @@ spring:
 
   # Configurações MySQL (via variáveis de ambiente)
   datasource:
-    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/meu_dia?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo}
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/sistema_monitoramento?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo}
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DATASOURCE_USERNAME:root}
     password: ${DATASOURCE_PASSWORD:}
@@ -32,6 +32,11 @@ spring:
       minimum-idle: 5
       idle-timeout: 300000
       connection-timeout: 20000
+
+  # Configuração para testes com H2
+  sql:
+    init:
+      mode: never
 
 # Configurações globais
 server:
@@ -42,9 +47,21 @@ server:
 # Logging
 logging:
   level:
-    com.meudia.api: DEBUG
+    com.sistema.monitoramento: DEBUG
     org.springframework.web: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
