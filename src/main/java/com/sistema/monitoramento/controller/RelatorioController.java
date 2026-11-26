@@ -70,7 +70,7 @@ public class RelatorioController {
     public ResponseEntity<Map<String, Long>> ocorrenciasPorGravidade() {
         Map<String, Long> resultado = new HashMap<>();
         for (Ocorrencia.Gravidade gravidade : Ocorrencia.Gravidade.values()) {
-            resultado.put(gravidade.name(), ocorrenciaRepository.findByGravidade(gravidade).size());
+            resultado.put(gravidade.name(), (long) ocorrenciaRepository.findByGravidade(gravidade).size());
         }
         return ResponseEntity.ok(resultado);
     }
@@ -121,7 +121,7 @@ public class RelatorioController {
     }
 
     @GetMapping("/evolucao-casos")
-    public ResponseEntity<List<Map<String, Object>>>> evolucaoCasos(
+    public ResponseEntity<List<Map<String, Object>>> evolucaoCasos(
             @RequestParam LocalDate inicio,
             @RequestParam LocalDate fim) {
         List<Caso> casos = casoRepository.findByDataAberturaBetween(inicio, fim);

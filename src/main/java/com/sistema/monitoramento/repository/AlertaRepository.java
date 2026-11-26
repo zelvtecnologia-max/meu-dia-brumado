@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AlertaRepository extends JpaRepository<Alerta, Long> {
@@ -18,6 +19,8 @@ public interface AlertaRepository extends JpaRepository<Alerta, Long> {
     Optional<Alerta> findByCodigoAlerta(String codigoAlerta);
 
     List<Alerta> findByUsuarioDestinatario(Usuario usuarioDestinatario);
+
+    Page<Alerta> findByUsuarioDestinatario(Usuario usuarioDestinatario, Pageable pageable);
 
     List<Alerta> findByUsuarioDestinatarioAndStatus(Usuario usuarioDestinatario, Alerta.StatusAlerta status);
 

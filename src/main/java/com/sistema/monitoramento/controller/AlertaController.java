@@ -39,7 +39,7 @@ public class AlertaController {
         }
         validarRelacionamentos(alerta);
         Alerta salvo = repository.save(alerta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
     @GetMapping("/{id}")

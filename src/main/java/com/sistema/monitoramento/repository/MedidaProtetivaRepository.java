@@ -24,6 +24,8 @@ public interface MedidaProtetivaRepository extends JpaRepository<MedidaProtetiva
 
     List<MedidaProtetiva> findByCaso(Caso caso);
 
+    Page<MedidaProtetiva> findByCaso(Caso caso, Pageable pageable);
+
     List<MedidaProtetiva> findByVitima(Pessoa vitima);
 
     List<MedidaProtetiva> findByAgressor(Pessoa agressor);

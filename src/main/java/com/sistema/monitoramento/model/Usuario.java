@@ -51,7 +51,7 @@ public class Usuario implements UserDetails {
     private String telefone;
 
     @Column(name = "celular", length = 15)
-    private String celular.
+    private String celular;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "perfil", nullable = false, length = 30)

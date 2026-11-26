@@ -47,7 +47,7 @@ public class InformacaoSaudeRelevante {
     private String unidadeSaude;
 
     @Column(name = "observacoes", columnDefinition = "TEXT")
-    private String observacoes.
+    private String observacoes;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

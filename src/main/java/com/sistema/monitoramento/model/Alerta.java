@@ -24,59 +24,59 @@ public class Alerta {
     private String codigoAlerta;
 
     @Column(name = "titulo", nullable = false, length = 200)
-    private String titulo.
+    private String titulo;
 
     @Column(columnDefinition = "TEXT")
-    private String descricao.
+    private String descricao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_alerta", nullable = false, length = 30)
-    private TipoAlerta tipoAlerta.
+    private TipoAlerta tipoAlerta;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "prioridade", nullable = false, length = 20)
-    private Prioridade prioridade.
+    private Prioridade prioridade;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 30)
-    private StatusAlerta status.
+    private StatusAlerta status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "caso_id")
-    private Caso caso.
+    private Caso caso;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medida_protetiva_id")
-    private MedidaProtetiva medidaProtetiva.
+    private MedidaProtetiva medidaProtetiva;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ocorrencia_id")
-    private Ocorrencia ocorrencia.
+    private Ocorrencia ocorrencia;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_destinatario_id")
-    private Usuario usuarioDestinatario.
+    private Usuario usuarioDestinatario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_remetente_id")
-    private Usuario usuarioRemetente.
+    private Usuario usuarioRemetente;
 
     @Column(name = "data_leitura")
-    private LocalDateTime dataLeitura.
+    private LocalDateTime dataLeitura;
 
     @Column(name = "data_resposta")
-    private LocalDateTime dataResposta.
+    private LocalDateTime dataResposta;
 
     @Column(name = "resposta", columnDefinition = "TEXT")
-    private String resposta.
+    private String resposta;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt.
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt.
+    private LocalDateTime updatedAt;
 
     public enum TipoAlerta {
         VIOLACAO_MEDIDA,
