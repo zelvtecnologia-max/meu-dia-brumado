@@ -54,6 +54,11 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
+# JWT Configuration
+jwt:
+  secret: sistema-monitoramento-jwt-secret-key-2024-super-seguro
+  expiration: 86400000
+
 # Actuator
 management:
   endpoints:

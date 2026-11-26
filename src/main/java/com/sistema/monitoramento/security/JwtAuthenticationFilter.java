@@ -1,7 +1,7 @@
 package com.sistema.monitoramento.security;
 
-import com.sistema.monitoramento.model.Usuario;
-import com.sistema.monitoramento.repository.UsuarioRepository;
+import com.sistema.monitoramento.model.UsuarioAdministrativo;
+import com.sistema.monitoramento.repository.UsuarioAdministrativoRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -19,14 +18,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioAdministrativoRepository usuarioRepository;
 
     private static final String JWT_SECRET = "sistema-monitoramento-jwt-secret-key-2024-super-seguro";
 
@@ -51,21 +49,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .getPayload();
 
             String username = claims.getSubject();
-            Long userId = claims.get("id", Long.class);
-            String perfil = claims.get("perfil", String.class);
+            Integer userId = claims.get("id", Integer.class);
 
-            Optional<Usuario> usuarioOpt = usuarioRepository.findById(userId);
+            Optional<UsuarioAdministrativo> usuarioOpt = usuarioRepository.findById(userId);
 
             if (usuarioOpt.isPresent()) {
-                Usuario usuario = usuarioOpt.get();
+                UsuarioAdministrativo usuario = usuarioOpt.get();
 
-                if (usuario.getStatus() == Usuario.StatusUsuario.ATIVO) {
-                    List<SimpleGrantedAuthority> authorities = List.of(
-                            new SimpleGrantedAuthority("ROLE_" + perfil)
-                    );
-
+                if (usuario.isEnabled()) {
                     UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(usuario, null, authorities);
+                            new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);

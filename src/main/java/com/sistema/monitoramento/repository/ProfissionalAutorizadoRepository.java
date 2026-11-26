@@ -15,4 +15,6 @@ public interface ProfissionalAutorizadoRepository extends JpaRepository<Profissi
     List<ProfissionalAutorizado> findByEspecialidade(String especialidade);
 
     Optional<ProfissionalAutorizado> findByRegistroProfissional(String registroProfissional);
+
+    boolean existsByEmail(String email);
 }

@@ -12,4 +12,6 @@ public interface AdministradorRepository extends JpaRepository<Administrador, In
     List<Administrador> findByPodeGerenciarUsuariosTrue();
 
     List<Administrador> findByNivelAcesso(String nivelAcesso);
+
+    boolean existsByEmail(String email);
 }
